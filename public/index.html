@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server</title>
+    <link rel="icon" type="images/x-icon" href="http://localhost:8080/favicon.png" />
+    <style>
+        body {
+            background-color: rgb(0, 54, 36);
+            color: rgb(106, 221, 183);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 100px;
+        }
+
+        #btnDiv {
+            width: 300px;
+            display: flex;
+            justify-content: space-around;
+            margin: auto;
+        }
+
+        #btnDiv button {
+            width: 100px;
+            height: 60px;
+        }
+
+        button {
+            background-color:rgb(0, 54, 36);
+            color: rgb(106, 221, 183);
+            border-color: rgb(163, 241, 215);
+            font-size: large;
+        }
+
+        button:hover {
+            background-color:rgb(0, 80, 67);
+        }
+
+        button:disabled {
+            color: rgb(0, 122, 82);
+        }
+    </style>
+    <script>
+        url = window.location.href
+
+        const startServer = () => {
+            document.getElementById("startBtn").disabled = true;
+            document.getElementById("endBtn").disabled = true;
+            
+            fetch(url + "start")
+            .then((res) => res.text())
+            .then(p => console.log(p))
+            .then(() => {
+                document.getElementById("startBtn").disabled = false;
+                document.getElementById("endBtn").disabled = false;
+            })
+            .catch(err=>console.error(err))
+        }
+
+        const stopServer = () => {
+            document.getElementById("startBtn").disabled = true;
+            document.getElementById("endBtn").disabled = true;
+
+            fetch(url + "stop")
+            .then((res) => res.text())
+            .then(p => console.log(p))
+            .then(() => {
+                document.getElementById("startBtn").disabled = false;
+                document.getElementById("endBtn").disabled = false;
+            })
+            .catch(err=>console.error(err))
+        }
+    </script>
+</head>
+<body>
+    <h1>Server Manager</h1>
+    <div id="btnDiv">
+        <button id="startBtn" onclick="startServer()">Start</button>
+        <button id="endBtn" onClick="stopServer()">End</button>
+    </div>
+</body>
+</html>
